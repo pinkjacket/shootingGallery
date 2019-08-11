@@ -58,6 +58,10 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="Content\bluetarget.xnb" />
+    <None Include="Content\galleryFont.xnb" />
+    <None Include="Content\grayback.xnb" />
+    <None Include="Content\greencross.xnb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
