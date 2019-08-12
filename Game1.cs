@@ -10,6 +10,12 @@ namespace shootingGallery
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Texture2D target;
+        Texture2D crosshair;
+        Texture2D background;
+
+        SpriteFont gameFont;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -23,16 +29,16 @@ namespace shootingGallery
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            target = Content.Load<Texture2D>("bluetarget");
+            crosshair = Content.Load<Texture2D>("greencross");
+            background = Content.Load<Texture2D>("grayback");
+
+            gameFont = Content.Load<SpriteFont>("galleryFont");
         }
 
         protected override void UnloadContent()
@@ -56,7 +62,13 @@ namespace shootingGallery
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
+
+            spriteBatch.DrawString(gameFont, "Testing", new Vector2(100, 100), Color.White);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
