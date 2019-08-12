@@ -25,6 +25,7 @@ namespace shootingGallery
         float mouseTargetDistance;
 
         int score = 0;
+        float timer = 20f;
 
         public Game1()
         {
@@ -64,13 +65,18 @@ namespace shootingGallery
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (timer > 0)
+            {
+                timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+
             mState = Mouse.GetState();
 
             mouseTargetDistance = Vector2.Distance(targetPosition, new Vector2(mState.X, mState.Y));
 
             if (mState.LeftButton == ButtonState.Pressed && mReleased == true)
             {
-                if (mouseTargetDistance < TARGET_RADIUS)
+                if (mouseTargetDistance < TARGET_RADIUS && timer > 0)
                 {
                     score++;
 
@@ -99,9 +105,14 @@ namespace shootingGallery
             spriteBatch.Begin();
 
             spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
-            spriteBatch.Draw(target, new Vector2(targetPosition.X - TARGET_RADIUS, targetPosition.Y - TARGET_RADIUS), Color.White);
 
-            spriteBatch.DrawString(gameFont, score.ToString(), new Vector2(100, 100), Color.White);
+            if (timer > 0)
+            {
+                spriteBatch.Draw(target, new Vector2(targetPosition.X - TARGET_RADIUS, targetPosition.Y - TARGET_RADIUS), Color.White);
+            }
+
+            spriteBatch.DrawString(gameFont, score.ToString(), new Vector2(3, 3), Color.White);
+            spriteBatch.DrawString(gameFont, Math.Ceiling(timer).ToString(), new Vector2(3, 40), Color.White);
 
             spriteBatch.End();
 
