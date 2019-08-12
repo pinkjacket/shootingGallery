@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace shootingGallery
 {
@@ -47,7 +48,7 @@ namespace shootingGallery
 
             target = Content.Load<Texture2D>("bluetarget");
             crosshair = Content.Load<Texture2D>("greencross");
-            background = Content.Load<Texture2D>("grayback");
+            background = Content.Load<Texture2D>("grayback2");
 
             gameFont = Content.Load<SpriteFont>("galleryFont");
         }
@@ -72,6 +73,11 @@ namespace shootingGallery
                 if (mouseTargetDistance < TARGET_RADIUS)
                 {
                     score++;
+
+                    Random rand = new Random();
+
+                    targetPosition.X = rand.Next(TARGET_RADIUS, graphics.PreferredBackBufferWidth - TARGET_RADIUS + 1);
+                    targetPosition.Y = rand.Next(TARGET_RADIUS, graphics.PreferredBackBufferHeight - TARGET_RADIUS + 1);
                 }
 
                 mReleased = false;
