@@ -16,10 +16,20 @@ namespace shootingGallery
 
         SpriteFont gameFont;
 
+        Vector2 targetPosition = new Vector2(300, 300);
+        const int TARGET_RADIUS = 45;
+
+        MouseState mState;
+        bool mReleased = true;
+
+        int score = 0;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            IsMouseVisible = true;
         }
 
         protected override void Initialize()
@@ -52,7 +62,17 @@ namespace shootingGallery
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            mState = Mouse.GetState();
+            if (mState.LeftButton == ButtonState.Pressed && mReleased == true)
+            {
+                score++;
+                mReleased = false;
+            }
+
+            if (mState.LeftButton == ButtonState.Released)
+            {
+                mReleased = true;
+            }
 
             base.Update(gameTime);
         }
@@ -65,8 +85,9 @@ namespace shootingGallery
             spriteBatch.Begin();
 
             spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(target, targetPosition, Color.White);
 
-            spriteBatch.DrawString(gameFont, "Testing", new Vector2(100, 100), Color.White);
+            spriteBatch.DrawString(gameFont, score.ToString(), new Vector2(100, 100), Color.White);
 
             spriteBatch.End();
 
