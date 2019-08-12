@@ -19,6 +19,7 @@ namespace shootingGallery
 
         Vector2 targetPosition = new Vector2(300, 300);
         const int TARGET_RADIUS = 45;
+        const int CROSS_RADIUS = 25;
 
         MouseState mState;
         bool mReleased = true;
@@ -32,7 +33,6 @@ namespace shootingGallery
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            IsMouseVisible = true;
         }
 
         protected override void Initialize()
@@ -111,8 +111,10 @@ namespace shootingGallery
                 spriteBatch.Draw(target, new Vector2(targetPosition.X - TARGET_RADIUS, targetPosition.Y - TARGET_RADIUS), Color.White);
             }
 
-            spriteBatch.DrawString(gameFont, score.ToString(), new Vector2(3, 3), Color.White);
-            spriteBatch.DrawString(gameFont, Math.Ceiling(timer).ToString(), new Vector2(3, 40), Color.White);
+            spriteBatch.DrawString(gameFont, "Score: " + score.ToString(), new Vector2(3, 3), Color.White);
+            spriteBatch.DrawString(gameFont, "Time: " + Math.Ceiling(timer).ToString(), new Vector2(3, 40), Color.White);
+
+            spriteBatch.Draw(crosshair, new Vector2(mState.X - CROSS_RADIUS, mState.Y - CROSS_RADIUS), Color.White);
 
             spriteBatch.End();
 
